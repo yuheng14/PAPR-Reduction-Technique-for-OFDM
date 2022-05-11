@@ -2,6 +2,7 @@
 **Overwiew**
 
 [1]S. Weinstein and P. Ebert, "Data Transmission by Frequency-Division Multiplexing Using the Discrete Fourier Transform," in IEEE Transactions on Communication Technology, vol. 19, no. 5, pp. 628-634, October 1971, doi: 10.1109/TCOM.1971.1090705.
+
 [2] Seung Hee Han and Jae Hong Lee, "An overview of peak-to-average power ratio reduction techniques for multicarrier transmission," in IEEE Wireless Communications, vol. 12, no. 2, pp. 56-65, April 2005, doi: 10.1109/MWC.2005.1421929.
 
 **Amplitude Clipping&Clipping and Filtering**
@@ -12,7 +13,9 @@
 **Teaching Material**
 
 [4] 孙宇彤.LTE教程原理与实现[M]. 电子工业出版社, 2016.
+
 [5] 杨昉,何丽峰,潘长勇.OFDM原理与标准————通信技术的演进[M]. 电子工业出版社, 2013.
+
 [6] Yong Soo Cho.MIMO-OFDM无线通信技术及MATLAB实现[M]. 电子工业出版社, 2013.
 
 

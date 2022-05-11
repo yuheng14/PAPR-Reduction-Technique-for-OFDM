@@ -1,4 +1,4 @@
-% PSK/QAM modulation
+% MPSK/QAM modulation
 function [tx_symbol,Mod] = mapper(b,N)
     if b == 1
         tx_data = randi([0 1],N,1);

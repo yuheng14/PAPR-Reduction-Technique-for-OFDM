@@ -1,16 +1,16 @@
 # References
-**Overwiew**
+ * **Overwiew**
 
 [1]S. Weinstein and P. Ebert, "Data Transmission by Frequency-Division Multiplexing Using the Discrete Fourier Transform," in IEEE Transactions on Communication Technology, vol. 19, no. 5, pp. 628-634, October 1971, doi: 10.1109/TCOM.1971.1090705.
 
 [2] Seung Hee Han and Jae Hong Lee, "An overview of peak-to-average power ratio reduction techniques for multicarrier transmission," in IEEE Wireless Communications, vol. 12, no. 2, pp. 56-65, April 2005, doi: 10.1109/MWC.2005.1421929.
 
-**Amplitude Clipping&Clipping and Filtering**
+* **Amplitude Clipping&Clipping and Filtering**
 
 [3] R. O'Neill and L. B. Lopes, "Envelope variations and spectral splatter in clipped multicarrier signals," Proceedings of 6th International Symposium on Personal, Indoor and Mobile Radio Communications, 1995, pp. 71-75 vol.1, doi: 10.1109/PIMRC.1995.476406.
 
 
-**Teaching Material**
+* **Teaching Material**
 
 [4] 孙宇彤.LTE教程原理与实现[M]. 电子工业出版社, 2016.
 

@@ -12,17 +12,18 @@
 clear all;close all;clc
 %% CCDF of OFDM signal with 256 and 1024 subcarriers for QPSK modulation
 Ns = [256 1024]; % num of subcarriers
-b = 2; 
-Nblk = 1e5;
+b = 2;          % choose the way of modulation
+Nblk = 1e4;     % num of data block
 zdBs = [4:0.1:12];
 NzdBs = length(zdBs);
 for n=1:length(Ns)
    N = Ns(n); 
-   x = zeros(Nblk,N);
+%    x = zeros(Nblk,N);
    sqN = sqrt(N);
    for k = 1:Nblk
       X = mapper(b,N);
-      x(k,:) = ifft(X,N)*sqN;
+      X = [X' zeros(1,N*3)];    % 4 times oversampling
+      x(k,:) = ifft(X)*sqN;
       PAPRx(k) = PAPR(x(k,:));
    end
    for i = 1:NzdBs
@@ -31,6 +32,7 @@ for n=1:length(Ns)
    
    semilogy(zdBs,CCDF_simulated);
    hold on;grid on;
+   clear x
 end
 axis([zdBs([1 end]) 1e-3 1]);
 title('CCDF of OFDM');

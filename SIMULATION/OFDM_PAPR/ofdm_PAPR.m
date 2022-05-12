@@ -4,15 +4,17 @@
 % mapper.m(function to constellation mapping)
 
 % matlab function used:
-% randi([min,max],m,n)    generate m*n matrix in [min,max]
-% lteSymbolModulate(in,mod)   map the bit value,in,to complex symbols
-% pskmod(x,M,phaseoffset)secify the phase offset of the M-PSK constellation
+% randi([min,max],m,n):    generate m*n matrix in [min,max]
+% lteSymbolModulate(in,mod):   map the bit value,in,to complex symbols
+% pskmod(x,M,phaseoffset):secify the phase offset of the M-PSK constellation
+% semilogy:y-axis log
+% axis([xmin xmax ymin ymax]):set the limit of axis
 clear all;close all;clc
 %% CCDF of OFDM signal with 256 and 1024 subcarriers for QPSK modulation
 Ns = [256 1024]; % num of subcarriers
 b = 2; 
-Nblk = 2e5;
-zdBs = [4:0.5:12];
+Nblk = 1e5;
+zdBs = [4:0.1:12];
 NzdBs = length(zdBs);
 for n=1:length(Ns)
    N = Ns(n); 
@@ -27,9 +29,11 @@ for n=1:length(Ns)
       CCDF_simulated(i) = sum(PAPRx>zdBs(i))/Nblk; 
    end
    
+   semilogy(zdBs,CCDF_simulated);
    hold on;grid on;
-   plot(zdBs,CCDF_simulated);
 end
+axis([zdBs([1 end]) 1e-3 1]);
+title('CCDF of OFDM');
 legend('256 subcarriers','1024 subcarriers');
 
 

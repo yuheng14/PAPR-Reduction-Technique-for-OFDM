@@ -11,11 +11,16 @@ Nblk = 1e4;     % num of data block
 L = 4;      % L times oversampling
 zdBs = [4:0.1:12];
 NzdBs = length(zdBs);
-SNRdBs = [0:12];
+SNRdBs = [1:12];
 N_SNR = length(SNRdBs);
 
-x = zeros(Nblk,Ns*L);
+x = zeros(Nblk,Ns);
 x_clipped = zeros(Nblk,Ns);
+y = zeros(Nblk,Ns);
+y_clipped = zeros(Nblk,Ns);
+rx_data = zeros(1,Nblk*Ns);
+rx_data_clipped = zeros(1,Nblk*Ns);
+
 
 % amplitude clipping and calculate CCDF
 for i = 1:N_SNR
@@ -35,6 +40,21 @@ for i = 1:N_SNR
         x(k,:) = ifft(X,Ns);
         x_clipped(k,:) = signal_clipping(x(k,:),2);
         
+        pwr_signal = 10*log10(rms(x(k,:)).^2);
+        pwr_signal_clipped = 10*log10(rms(x_clipped(k,:)).^2);
+        snr_linear = 10.^(SNRdBs(i)/10);
+        pwr_noise = pwr_signal/snr_linear;   
+        pwr_noise_clipped = pwr_signal_clipped/snr_linear;
+        noise = sqrt(pwr_noise/2)*(randn(Ns, 1)+1j*randn(Ns, 1));    
+        noise_clipped= sqrt(pwr_noise_clipped/2)*(randn(Ns, 1)+1j*randn(Ns, 1));
+        y(k,:) = fft(x(k,:)+noise');
+        y_clipped(k,:) = fft(x_clipped(k,:)+noise_clipped');
+        
+        rx_demod = pskdemod(y(k,:),4);
+        err(k) = sum(rx_demod~=tx_data');
+        rx_demod = pskdemod(y_clipped(k,:),4);
+        err_clipped(k) = sum(rx_demod~=tx_data');
+        
         % calculate clipped signal PAPR
         N = length(x(k,:));
         xI = real(x(k,:));
@@ -52,8 +72,10 @@ for i = 1:N_SNR
         PeakP = max(Power);
         AvgP = sum(Power)/N;
         PAPRx_clipped(k) = 10*log10(PeakP/AvgP);
-
+       
     end
+    ber(i) = sum(err)/Ns/Nblk;
+    ber_clipped(i) = sum(err_clipped)/Ns/Nblk;
 end
 
 for i = 1:NzdBs
@@ -71,3 +93,9 @@ figure();
 semilogy(zdBs,CCDF_simulated);
 hold on;
 semilogy(zdBs,CCDF_simulated_clipped);
+
+figure();
+plot(SNRdBs,ber_clipped);
+hold on;
+plot(SNRdBs,ber);
+
